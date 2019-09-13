@@ -1,0 +1,96 @@
+#VRML V2.0 utf8
+
+
+# Ve ban
+Transform {
+	rotation 0 1 0 1.57
+	children [
+DEF tu Transform {
+
+	children [
+		Transform {
+	
+			children [
+				DEF vuong Shape {
+					appearance Appearance {
+						material Material {
+							diffuseColor .51 .17 .06
+							specularColor .53 .53 .53
+							ambientIntensity .06
+							shininess .93
+						}
+					}
+					geometry Box {
+
+						size 4 0.2 4
+
+					}
+				}
+	
+			]
+		}
+
+		Transform {
+
+			translation	 -1.9 1 0
+			children [
+
+				DEF thanh Shape {
+					appearance Appearance {
+
+						material Material {
+							diffuseColor .51 .17 .06
+							specularColor .53 .53 .53
+							ambientIntensity .06
+							shininess .93
+						}
+					}
+					geometry Box {
+
+						size 0.2 2 4
+
+					}
+
+				}
+
+			]
+
+		}
+		Transform {
+
+			translation 1.9 1 0
+			children  USE thanh
+
+		}
+		Transform {
+			translation 0 1 -1.9
+			rotation 0 1 0 1.57
+			children  USE thanh
+
+		}
+		Transform {
+			translation 0 1 1.9
+			rotation 0 1 0 1.57
+			children  USE thanh
+
+		}
+		DEF plane PlaneSensor	{
+			enabled	TRUE
+			offset  0 0 0
+			autoOffset TRUE
+			maxPosition	3 0
+			minPosition	-3 0
+
+		}
+	]
+	ROUTE  plane.translation_changed TO	tu.translation
+}
+]
+}
+
+
+
+
+
+
+

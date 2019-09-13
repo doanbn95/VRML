@@ -1,0 +1,155 @@
+#VRML V2.0 utf8
+
+# Ban
+
+DEF banhoc Transform {
+
+	children [
+		#Mat bàn
+		Transform {
+
+			children [
+				Transform {
+
+					children [
+						Shape {
+							appearance Appearance {
+								material	Material {
+									diffuseColor .624 .149 .00784
+									specularColor .0275 .0235 .0235
+									emissiveColor 0 .129 .0706
+									ambientIntensity .0833
+									shininess .08
+								}
+				
+							}
+							 geometry Box {
+								size 5 0.1 2
+							}
+
+						}
+					]
+				}
+
+				Transform {
+					translation	2.3 -1 0.8
+
+					children [
+
+						DEF chanban Shape {
+							appearance Appearance {
+								material Material {
+									diffuseColor 1 .85 0
+									specularColor .87 .25 .25
+									ambientIntensity .157
+									shininess 1
+								}
+							}
+
+							geometry Box{
+								size 0.2 2 0.2
+							}
+						}
+
+
+					]	
+
+				}
+
+				Transform{
+					translation	 -2.3 -1 -0.8
+					children USE chanban
+
+				}
+				Transform{
+					translation	 2.3 -1 -0.8
+					children USE chanban
+
+				}
+				Transform{
+					translation	 -2.3 -1 0.8
+					children USE chanban
+
+				}
+			]
+		}
+
+		#ngan ban
+		Transform {
+			rotation 0 1 0 -1.57
+			translation	1.5 -0.575 0.5
+			children [
+				DEF nganban Transform {
+					children [
+						Transform {
+							children [
+								DEF matnganban Shape {
+									appearance	Appearance {
+										material Material {
+											diffuseColor .467 .169 .0588
+											specularColor .53 .53 .53
+											ambientIntensity .06
+											shininess .624
+										}	
+									}
+									geometry Box {
+									   size	1 0.05 1
+
+									}
+								}
+		
+							]
+
+						}
+
+						Transform { 
+							translation	 -0.475 0.275  0
+							children [
+								DEF thanhngan Shape {
+									appearance  Appearance {
+										material Material {
+											diffuseColor .95 .32 .32
+											specularColor .07 .02 .01
+											ambientIntensity .13
+											shininess .02
+										}
+									}
+									geometry Box {
+										size 0.05 0.5 1
+									}
+
+								}	
+							]
+						}
+						Transform {
+							translation	0.475 0.275 0
+							children USE thanhngan 
+
+						}
+						Transform {
+							rotation 0 1 0 1.57
+							translation	 0 0.275  -0.475
+							children  USE thanhngan	
+						}
+						Transform {
+							rotation 0 1 0 1.57
+							translation	 0 0.275 0.475
+							children  USE thanhngan	
+						}
+
+					]
+	
+				}
+				DEF planeS PlaneSensor	{
+					enabled	TRUE
+					offset  0 0 0
+					autoOffset TRUE
+					minPosition	0 0
+					maxPosition	0.5 0
+				}
+			]
+			ROUTE planeS.translation_changed TO	nganban.translation
+		}
+	]
+}
+
