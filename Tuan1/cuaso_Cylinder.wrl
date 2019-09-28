@@ -1,0 +1,28 @@
+#VRML V2.0 utf8
+Transform {
+	rotation  0 0 1 -1.57
+	children [
+DEF cuaT Transform {
+	translation -2 0 0
+	children [
+		Transform {
+			translation	1 0 0
+			children [
+					DEF cua	Shape {
+							appearance Appearance {
+								material Material {
+									diffuseColor 1 1 0
+								} }
+							geometry Box {size 2 4 0.1}
+						}]}
+	DEF	cylsensor1 CylinderSensor {
+			enabled	TRUE
+			offset 0
+			autoOffset TRUE
+			maxAngle 0
+			minAngle -1.57
+			diskAngle 0.001
+		}]
+   ROUTE cylsensor1.rotation_changed TO cuaT.rotation
+}
+]}

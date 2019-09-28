@@ -1,0 +1,79 @@
+#VRML V2.0 utf8
+
+DEF thankem Shape{
+
+	appearance Appearance {
+		material Material {
+			diffuseColor .51 .17 .06
+			specularColor .53 .53 .53
+			ambientIntensity .06
+			shininess .93
+		}
+
+	}
+	geometry Extrusion {
+		crossSection [
+			2.00	0.00
+			1.85	0.77
+			1.41	1.41
+			0.77	1.85
+			0.00	2.00
+			-0.77	1.85
+			-1.41	1.41
+			-1.85	0.77
+			-2.00	0.00
+			-1.85	-0.77
+			-1.41	-1.41
+			-0.77	-1.85
+			0.00	-2.00
+			0.77	-1.85
+			1.41	-1.41
+			1.85	-0.77
+			2.00	0.00]
+		spine [ 0 0 0,0 0.5 0 ,0 0.75 0, 0 1 0,0 1.25 0, 0 1.5 0, 0 4 0,0 8 0]
+		scale [0.2 0.2,0.2 0.2,1 0.4 ,1 0.6,1 0.8,1 0.7,1 0.5,0.9 0]
+		creaseAngle	1
+		beginCap FALSE
+		endCap FALSE
+		solid FALSE	
+	}
+}
+DEF nap Shape{
+	appearance Appearance {
+		material Material {
+			diffuseColor 0 .35 .25
+			specularColor 0 .31 .36
+			ambientIntensity .0533
+			shininess .32
+		}
+	}
+	geometry Extrusion {
+		crossSection [
+			2.00	0.00
+			1.85	0.77
+			1.41	1.41
+			0.77	1.85
+			0.00	2.00
+			-0.77	1.85
+			-1.41	1.41
+			-1.85	0.77
+			-2.00	0.00
+			-1.85	-0.77
+			-1.41	-1.41
+			-0.77	-1.85
+			0.00	-2.00
+			0.77	-1.85
+			1.41	-1.41
+			1.85	-0.77
+			2.00	0.00
+		]
+		spine [ 0 0 0,0 0.5 0 ]
+		scale [0.21 0.21,0.21 0.21]
+		creaseAngle	1
+		beginCap TRUE
+		endCap FALSE
+		solid FALSE	
+
+	}
+
+}
