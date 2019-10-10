@@ -1,5 +1,13 @@
 #VRML V2.0 utf8
 
+Viewpoint {
+	fieldOfView	0.7853
+	jump TRUE
+	orientation	0 1 0  0
+	position 0 15 18
+
+
+}
 DEF chai Shape{
 	appearance Appearance {
 		material Material {
@@ -37,42 +45,91 @@ DEF chai Shape{
 		solid FALSE
 	}
 }
-DEF	nap Shape{
-	appearance Appearance {
-		material Material {
-			diffuseColor .33 .34 .6
-			specularColor .29 .29 .29
-			ambientIntensity .103
-			shininess .79
-		}
-	}
-	geometry Extrusion {
-		crossSection[
+DEF	nap Transform {
+	children [
+		Shape{
+			appearance Appearance {
+				material Material {
+					diffuseColor .33 .34 .6
+					specularColor .29 .29 .29
+					ambientIntensity .103
+					shininess .79
+				}
+			}
+			geometry Extrusion {
+				crossSection[
 
-		 	2.00	0.00
-			1.85	0.77
-			1.41	1.41
-			0.77	1.85
-			0.00	2.00
-			-0.77	1.85
-			-1.41	1.41
-			-1.85	0.77
-			-2.00	0.00
-			-1.85	-0.77
-			-1.41	-1.41
-			-0.77	-1.85
-			0.00	-2.00
-			0.77	-1.85
-			1.41	-1.41
-			1.85	-0.77
-			2.00	0.00
-		]
-		spine [0 12 0,0 12.5 0]
-		scale [0.41 0.41,0.41 0.41]
-		creaseAngle	1
-		beginCap FALSE
-		endCap TRUE
-		solid FALSE
-	}
+		 			2.00	0.00
+					1.85	0.77
+					1.41	1.41
+					0.77	1.85
+					0.00	2.00
+					-0.77	1.85
+					-1.41	1.41
+					-1.85	0.77
+					-2.00	0.00
+					-1.85	-0.77
+					-1.41	-1.41
+					-0.77	-1.85
+					0.00	-2.00
+					0.77	-1.85
+					1.41	-1.41
+					1.85	-0.77
+					2.00	0.00
+				]
+				spine [0 12 0,0 12.5 0]
+				scale [0.41 0.41,0.41 0.41]
+				creaseAngle	1
+				beginCap FALSE
+				endCap TRUE
+				solid FALSE
+			}
+
+		}
+	]
+}
+DEF time TimeSensor{
+	cycleInterval 1
+	loop TRUE
+	enabled	TRUE
+}
+DEF	touch TouchSensor {
+	enabled	TRUE 
+}
+DEF	oratation OrientationInterpolator {
+	key	[0, 0.5,0.8]
+	keyValue [0 1 0 0,0 1 0 3.14,0 1 0 6.28]
 
 }
+DEF	positon PositionInterpolator {
+	key	[0,0.6,0.7,0.75,0,8,1]
+	keyValue [0 0.1 0,0 0.1 0 ,0 0.2 0,0 0.1 0, 0 0.2 0, 0 10 0]
+
+}
+DEF	ma Script {
+	eventIn SFBool turnOn
+	eventOut SFBool On
+	eventOut SFBool	Off
+	field SFBool turn FALSE
+	url "javascript:
+	function turnOn(val){
+		if(val){
+			turn=!turn;
+			if(turn){
+				On=TRUE;
+			}else{
+				On=FALSE;
+			}
+		}
+	}	
+	"
+
+}
+ROUTE	touch.isActive TO  ma.turnOn
+ROUTE ma.On	TO time.enabled
+ROUTE time.fraction_changed	TO oratation.set_fraction
+ROUTE time.fraction_changed	TO positon.set_fraction
+ROUTE positon.value_changed	TO nap.translation
+ROUTE oratation.value_changed TO nap.rotation
+
+

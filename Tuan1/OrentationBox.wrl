@@ -1,0 +1,143 @@
+#VRML V2.0 utf8
+
+DEF box Transform {
+	children [
+		Shape {
+			appearance Appearance {
+				material Material {
+					diffuseColor .88 .15 .01
+					specularColor .19 .03 .03
+					ambientIntensity .0833
+					shininess .08
+				}
+
+			}
+			geometry Box{
+				size 3 3 3
+			}
+
+		}
+
+		DEF time1 TimeSensor{
+			enabled	FALSE
+			cycleInterval 5
+			loop TRUE
+		}
+
+		DEF time2 TimeSensor{
+			enabled	FALSE
+			cycleInterval 5
+			loop TRUE
+		}
+
+		DEF orientation1 OrientationInterpolator	{
+			key[0, .5, 1]
+			keyValue [
+				0 1 0 0,
+				0 1 0 3.14,
+				0 1 0 6.28,
+			]
+		}
+
+		DEF orientation2 OrientationInterpolator	{
+			key[0, .5, 1]
+			keyValue [
+				0 1 0 0,
+				0 1 0 -3.14,
+				0 1 0 -6.28,
+			]
+		}
+
+		DEF	postion PositionInterpolator {
+			key [0,.2,.4,.6,1]
+			keyValue [-3 0 0,3 0 0,3 0 -3,-3 0 -3]
+
+		}
+		DEF	postion1 PositionInterpolator {
+			key [0,.2,.4,.6,1]
+			keyValue [-3 0 -3,3 0 -3,3 0 0,-3 0 0]
+
+		}
+
+		DEF	touch TouchSensor {
+			
+			enabled	TRUE
+		}
+	]
+
+}
+DEF	ma Script {
+	eventIn SFBool turnOn
+	eventOut SFBool On
+	eventOut SFBool	Off
+	field SFBool turn FALSE
+
+	url "javascript:
+
+		function turnOn(val){
+
+		if(val){
+
+		turn = !turn;
+
+			if(turn)
+
+			{
+				On= turn;
+
+        		Off=!turn;
+
+        	 }else{
+
+            	 On=FALSE;
+
+				Off=TRUE;
+
+        	}
+
+        }
+
+    }"
+
+}
+DEF	postionScript Script {
+
+	eventIn SFBool turnOn
+	eventOut SFBool	On
+	eventOut SFBool	Off
+	field SFBool  turn FALSE
+	url	"javascript:
+	function turnOn(val){
+		
+		if(val){
+			turn=!turn
+			On=turn;
+			Off=!turn;	
+		}
+
+	}
+	
+	"
+
+
+
+}
+
+#ROUTE touch.isActive TO	ma.turnOn
+#ROUTE ma.On	TO time1.enabled
+#ROUTE ma.Off TO	time2.enabled
+
+#ROUTE time1.fraction_changed	TO orientation1.set_fraction
+#ROUTE  orientation1.value_changed TO	box.rotation
+#ROUTE time2.fraction_changed	TO orientation2.set_fraction
+#ROUTE  orientation2.value_changed TO	box.rotation
+
+ROUTE touch.isActive TO	postionScript.turnOn
+ROUTE postionScript.On TO time1.enabled
+ROUTE postionScript.Off TO time2.enabled
+
+ROUTE time1.fraction_changed TO	postion.set_fraction
+ROUTE postion.value_changed	TO box.translation
+
+ROUTE time2.fraction_changed TO	postion1.set_fraction
+ROUTE postion1.value_changed	TO box.translation
